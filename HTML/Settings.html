@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../CSS/Site.css">
+    <link rel="stylesheet" href="../CSS/Settings.css">
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="navbar-left" onclick="toggleMenu()">☰</div>
+        <div class="navbar-center">Settings</div>
+        <button class="navbar-right btn-new" onclick="saveSettings()">💾 Save</button>
+    </div>
+
+    <div id="sidebar-menu" class="sidebar-menu">
+        <button id="close-menu" class="close-menu-btn">✕</button>
+        <nav class="sidebar-nav">
+            <a href="Quizzes.html" class="sidebar-link">📝 Quizzes</a>
+            <a href="Students.html" class="sidebar-link">👥 Students</a>
+            <a href="Classes.html" class="sidebar-link">🎓 Classes</a>
+            <a href="Account.html" class="sidebar-link">👤 Account</a>
+            <a href="Settings.html" class="sidebar-link">⚙️ Settings</a>
+        </nav>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+    <div class="main-content">
+        <div class="settings-container">
+            <div class="settings-section">
+                <h2>🎨 Appearance</h2>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="theme-toggle">Dark Mode</label>
+                            <p class="setting-desc">Enable dark theme for the application</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="theme-toggle" class="toggle-switch">
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="font-size">Font Size</label>
+                            <p class="setting-desc">Adjust text size across the app</p>
+                        </div>
+                        <div class="setting-control">
+                            <select id="font-size" class="setting-select">
+                                <option value="small">Small</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="large">Large</option>
+                                <option value="extra-large">Extra Large</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="color-scheme">Color Scheme</label>
+                            <p class="setting-desc">Choose your preferred color theme</p>
+                        </div>
+                        <div class="setting-control">
+                            <select id="color-scheme" class="setting-select">
+                                <option value="blue" selected>Blue</option>
+                                <option value="green">Green</option>
+                                <option value="purple">Purple</option>
+                                <option value="orange">Orange</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>🔔 Notifications</h2>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="notification-new">New Items Created</label>
+                            <p class="setting-desc">Get notified when new items are created</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="notification-new" class="toggle-switch" checked>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="notification-edit">Items Modified</label>
+                            <p class="setting-desc">Get notified when items are edited</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="notification-edit" class="toggle-switch" checked>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="notification-delete">Items Deleted</label>
+                            <p class="setting-desc">Get notified when items are removed</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="notification-delete" class="toggle-switch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>💾 Data Management</h2>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label>Auto-save</label>
+                            <p class="setting-desc">Automatically save changes to local storage</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="autosave" class="toggle-switch" checked>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label>Auto-save Interval</label>
+                            <p class="setting-desc">How often to save automatically (seconds)</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="number" id="autosave-interval" class="setting-input" min="5" max="300" value="30">
+                        </div>
+                    </div>
+
+                    <div class="settings-item danger-zone">
+                        <div class="setting-label">
+                            <label>Export Data</label>
+                            <p class="setting-desc">Download all data as JSON backup</p>
+                        </div>
+                        <div class="setting-control">
+                            <button class="btn btn-secondary" onclick="exportData()">📥 Export</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-item danger-zone">
+                        <div class="setting-label">
+                            <label>Clear All Data</label>
+                            <p class="setting-desc">Delete all students, classes, and quizzes</p>
+                        </div>
+                        <div class="setting-control">
+                            <button class="btn btn-danger" onclick="confirmClearData()">🗑️ Clear Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>🔒 Privacy & Security</h2>
+                <div class="settings-group">
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="analytics">Allow Analytics</label>
+                            <p class="setting-desc">Help us improve by sharing usage data</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="analytics" class="toggle-switch">
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label for="cookies">Accept Cookies</label>
+                            <p class="setting-desc">Allow functional and preference cookies</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="cookies" class="toggle-switch" checked>
+                        </div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="setting-label">
+                            <label>Password</label>
+                            <p class="setting-desc">Change your account password</p>
+                        </div>
+                        <div class="setting-control">
+                            <button class="btn btn-secondary" onclick="changePassword()">🔐 Change</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>ℹ️ About</h2>
+                <div class="settings-group">
+                    <div class="about-item">
+                        <p><strong>Application:</strong> Education Management System</p>
+                        <p><strong>Version:</strong> 1.0.0</p>
+                        <p><strong>Storage:</strong> Browser LocalStorage</p>
+                    </div>
+                    <div class="about-links">
+                        <a href="#" class="about-link">📋 Terms of Service</a>
+                        <a href="#" class="about-link">🔐 Privacy Policy</a>
+                        <a href="#" class="about-link">📧 Contact Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="Quizzes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Quizzes 📝</a>
+        <a href="Students.html" style="color: white; font-size: 1.8em; text-decoration: none;">Students 👥</a>
+        <a href="Classes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Classes 🎓</a>
+        <a href="Settings.html" style="color: white; font-size: 1.8em; text-decoration: none;">Settings ⚙️</a>
+    </div>
+
+    <script src="../JS/api.js"></script>
+<script src="../JS/Site.js"></script>
+    <script src="../JS/Settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+/* ========== GLOBAL STYLES ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #667eea;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* ========== LOGO SECTION ========== */
+.logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    background: white;
+    padding: 10px;
+}
+
+.logo-section h1 {
+    font-size: 2em;
+}
+
+/* ========== FORM CONTAINER ========== */
+.auth-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-wrapper {
+    padding: 30px;
+}
+
+.form-wrapper h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+}
+
+.form-wrapper.hidden {
+    display: none;
+}
+
+/* ========== FORM ELEMENTS ========== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #5568d3;
+}
+
+.btn-guest {
+    background: #f5576c;
+    margin-top: 10px;
+}
+
+.btn-guest:hover {
+    background: #e63d54;
+}
+
+/* ========== TEXT & DIVIDERS ========== */
+.divider {
+    text-align: center;
+    color: #999;
+    margin: 15px 0;
+}
+
+.toggle-text {
+    text-align: center;
+    margin-top: 15px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+.toggle-text a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.toggle-text a:hover {
+    text-decoration: underline;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .form-wrapper {
+        padding: 20px;
+    }
+
+    .logo-section h1 {
+        font-size: 1.5em;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+}

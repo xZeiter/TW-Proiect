@@ -1,0 +1,10 @@
+{
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "liveServer.settings.ignoreFiles": [
+        "**/scans/**",
+        "**/*.jpg",
+        "**/*.png",
+        "**/*.pdf"
+    ]
+}

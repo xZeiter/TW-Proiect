@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="../CSS/Site.css">
+    <link rel="stylesheet" href="../CSS/Account.css">
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="navbar-left" onclick="toggleMenu()">☰</div>
+        <div class="navbar-center">Account</div>
+        <button class="navbar-right btn-new" onclick="logout()">Logout</button>
+    </div>
+
+    <div id="sidebar-menu" class="sidebar-menu">
+        <button id="close-menu" class="close-menu-btn">✕</button>
+        <nav class="sidebar-nav">
+            <a href="Quizzes.html" class="sidebar-link">📝 Quizzes</a>
+            <a href="Students.html" class="sidebar-link">👥 Students</a>
+            <a href="Classes.html" class="sidebar-link">🎓 Classes</a>
+            <a href="Account.html" class="sidebar-link">👤 Account</a>
+        </nav>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+    <div class="main-content">
+        <div class="account-container">
+            <div id="auth-section" class="auth-section">
+                <div class="auth-buttons">
+                    <button class="btn-auth" onclick="openLoginModal()">Login Existing User</button>
+                    <button class="btn-auth" onclick="openRegisterModal()">Register New User</button>
+                </div>
+
+                <div id="status-message" class="status-message">
+                    <p>You are not currently logged in as a user. Please login or register to access features.</p>
+                </div>
+
+                <div id="profile-section" class="profile-section" style="display: none;">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <h2 id="profile-username">User</h2>
+                            <p id="profile-email">email@example.com</p>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-label">Free Scans</span>
+                                <span id="profile-scans" class="stat-value">100</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Account Status</span>
+                                <span id="profile-status" class="stat-value">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-navbar">
+                <div class="modal-title">LOGIN</div>
+                <div class="modal-actions">
+                    <button id="login-cancel" class="btn" onclick="closeLoginModal()">Cancel</button>
+                    <button id="login-submit" class="btn btn-primary" onclick="handleLogin(event)">Login with Existing User</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="login-remember" name="remember">
+                        <label for="login-remember">I accept the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                    </div>
+                    <p id="login-error" class="error-message"></p>
+                    <p style="text-align: center; margin-top: 20px; color: #666;">
+                        <a href="#" style="color: #667eea; font-weight: 600; text-decoration: none;">I've forgotten my password</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-navbar">
+                <div class="modal-title">REGISTER</div>
+                <div class="modal-actions">
+                    <button id="register-cancel" class="btn" onclick="closeRegisterModal()">Cancel</button>
+                    <button id="register-submit" class="btn btn-primary" onclick="handleRegister(event)">Register New User</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" placeholder="Create a strong password" required>
+                    </div>
+                    <div class="password-requirements">
+                        <h4>Password Requirements:</h4>
+                        <ul>
+                            <li>At least 8 characters, longer is better</li>
+                            <li>Use mix of case, numbers, and punctuation</li>
+                            <li>Do not use commonly guessed passwords</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirm Password</label>
+                        <input type="password" id="register-confirm" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="register-terms" name="terms" required>
+                        <label for="register-terms">I accept the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="register-logs" name="logs" checked>
+                        <label for="register-logs">Share Crash & Usage Logs With Service</label>
+                    </div>
+                    <p id="register-error" class="error-message"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="Quizzes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Quizzes 📝</a>
+        <a href="Students.html" style="color: white; font-size: 1.8em; text-decoration: none;">Students 👥</a>
+        <a href="Classes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Classes 🎓</a>
+        <a href="Account.html" style="color: white; font-size: 1.8em; text-decoration: none;">Account 👤</a>
+    </div>
+   <script src="../JS/api.js"></script>
+   <script src="../JS/Site.js"></script>
+   <script src="../JS/Account.js"></script>
+    
+    
+</body>
+</html>

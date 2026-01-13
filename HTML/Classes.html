@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
+    <link rel="stylesheet" href="../CSS/Site.css">
+    <link rel="stylesheet" href="../CSS/Classes.css">
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="navbar-left" onclick="toggleMenu()">☰</div>
+        <div class="navbar-center">Classes</div>
+        <button class="navbar-right btn-new" onclick="createNew()">+ New</button>
+    </div>
+
+    <div id="sidebar-menu" class="sidebar-menu">
+        <button id="close-menu" class="close-menu-btn">✕</button>
+        <nav class="sidebar-nav">
+            <a href="Quizzes.html" class="sidebar-link">📝 Quizzes</a>
+            <a href="Students.html" class="sidebar-link">👥 Students</a>
+            <a href="Classes.html" class="sidebar-link">🎓 Classes</a>
+            <a href="Account.html" class="sidebar-link">👤 Account</a>
+        </nav>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="search-controls">
+                <div class="filter-buttons">
+                    <button id="toggle-class-name" class="filter-btn active" data-filter="name">Name</button>
+                    <button id="toggle-class-id" class="filter-btn" data-filter="id">Class ID</button>
+                </div>
+                <div class="search-bar">
+                    <input id="search-classes" type="text" placeholder="🔍 Search..." class="search-input">
+                    <button id="refresh-classes-btn" class="refresh-btn">↻ Reset</button>
+                </div>
+            </div>
+
+            <div class="grid">
+            </div>
+        </div>
+
+        <div id="classModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <div class="modal-title">New Class</div>
+                    <div class="modal-actions">
+                        <button id="class-cancel" class="btn">Cancel</button>
+                        <button id="class-create" class="btn btn-primary">Create Class</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form id="class-form">
+                        <div class="form-group">
+                            <label for="class-name">Class Name</label>
+                            <input id="class-name" type="text" placeholder="Enter class name" required>
+                        </div>
+
+                        <div class="student-controls">
+                            <div class="student-filter">
+                                <label>
+                                    <input id="toggle-unassigned" type="checkbox">
+                                    Show only unassigned students
+                                </label>
+                            </div>
+                            
+                            <!-- Search Filter Toggles & Search Bar -->
+                            <div class="student-filter-row">
+                                <div class="filter-buttons">
+                                    <button type="button" id="toggle-student-name" class="filter-btn active" data-filter="name">Name</button>
+                                    <button type="button" id="toggle-student-id" class="filter-btn" data-filter="id">ID</button>
+                                    <button type="button" id="toggle-student-extid" class="filter-btn" data-filter="extid">Ext ID</button>
+                                </div>
+                                <div class="student-search">
+                                    <input id="search-class-students" type="text" placeholder="🔍 Search..." class="search-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="student-list">
+                            <div class="student-list-header">Select students to add to this class:</div>
+                            <div id="student-items" class="student-items">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewClassModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <button id="view-back" class="btn">← Back</button>
+                    <div class="modal-title" id="view-class-title">Class Name</div>
+                    <button id="view-edit" class="btn btn-primary">Edit</button>
+                </div>
+
+                <div class="view-tabs">
+                    <button type="button" class="tab-btn active" data-tab="students">Students</button>
+                    <button type="button" class="tab-btn" data-tab="quizzes">Quizzes</button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="students-tab" class="tab-content active">
+                        <div class="student-filter-row">
+                            <div class="filter-buttons">
+                                <button type="button" class="filter-btn active view-filter" data-filter="name">Name</button>
+                                <button type="button" class="filter-btn view-filter" data-filter="id">ID</button>
+                                <button type="button" class="filter-btn view-filter" data-filter="extid">Ext ID</button>
+                            </div>
+                            <div class="student-search">
+                                <input id="search-view-students" type="text" placeholder="🔍 Search..." class="search-input">
+                            </div>
+                        </div>
+
+                        <div class="student-list">
+                            <div class="student-list-header">Students in this class:</div>
+                            <div id="view-student-items" class="student-items">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quizzes-tab" class="tab-content">
+                        <div class="student-filter-row">
+                            <div class="filter-buttons">
+                                <button type="button" class="filter-btn active view-quiz-filter" data-filter="name">Name</button>
+                                <button type="button" class="filter-btn view-quiz-filter" data-filter="date">Date</button>
+                            </div>
+                            <div class="student-search">
+                                <input id="search-view-quizzes" type="text" placeholder="🔍 Search..." class="search-input">
+                            </div>
+                        </div>
+
+                        <div class="student-list">
+                            <div class="student-list-header">Quizzes in this class:</div>
+                            <div id="view-quiz-items" class="student-items">
+                                <div class="student-item" style="color: #999; padding: 20px; text-align: center;">
+                                    <em>No quizzes yet. Create one to get started.</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="editClassModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <button id="edit-class-delete" class="btn" style="background-color: #dc3545; color: white;">Delete</button>
+                    <div class="modal-title">Edit Class</div>
+                    <button id="edit-class-done" class="btn btn-primary">Done</button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-class-form">
+                        <div class="form-group">
+                            <label for="edit-class-name">Class Name</label>
+                            <input id="edit-class-name" type="text" placeholder="Enter class name" required>
+                        </div>
+
+                        <div class="student-controls">
+                            <div class="student-filter">
+                                <label>
+                                    <input id="toggle-edit-unassigned" type="checkbox">
+                                    Show only unassigned students
+                                </label>
+                            </div>
+                            
+                            <div class="student-filter-row">
+                                <div class="filter-buttons">
+                                    <button type="button" class="filter-btn active" data-filter="name" id="toggle-edit-student-name">Name</button>
+                                    <button type="button" class="filter-btn" data-filter="id" id="toggle-edit-student-id">ID</button>
+                                    <button type="button" class="filter-btn" data-filter="extid" id="toggle-edit-student-extid">Ext ID</button>
+                                </div>
+                                <div class="student-search">
+                                    <input id="search-edit-class-students" type="text" placeholder="🔍 Search..." class="search-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="student-list">
+                            <div class="student-list-header">Select students for this class:</div>
+                            <div id="edit-student-items" class="student-items">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="Quizzes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Quizzes 📝</a>
+        <a href="Students.html" style="color: white; font-size: 1.8em; text-decoration: none;">Students 👥</a>
+        <a href="Classes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Classes 🎓</a>
+        <a href="Account.html" style="color: white; font-size: 1.8em; text-decoration: none;">Account 👤</a>
+    </div>
+
+    <script src="../JS/api.js"></script>
+<script src="../JS/Site.js"></script>
+    <script src="../JS/Classes.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+    <link rel="stylesheet" href="../CSS/Site.css">
+    <link rel="stylesheet" href="../CSS/Students.css">
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="navbar-left" onclick="toggleMenu()">☰</div>
+        <div class="navbar-center">Students</div>
+        <button class="navbar-right btn-new" onclick="createNew()">+ New</button>
+    </div>
+
+    <div id="sidebar-menu" class="sidebar-menu">
+        <button id="close-menu" class="close-menu-btn">✕</button>
+        <nav class="sidebar-nav">
+            <a href="Quizzes.html" class="sidebar-link">📝 Quizzes</a>
+            <a href="Students.html" class="sidebar-link">👥 Students</a>
+            <a href="Classes.html" class="sidebar-link">🎓 Classes</a>
+            <a href="Account.html" class="sidebar-link">👤 Account</a>
+        </nav>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="search-controls">
+                <div class="filter-buttons">
+                    <button id="toggle-name" class="filter-btn active" data-filter="name">Name</button>
+                    <button id="toggle-id" class="filter-btn" data-filter="id">Id</button>
+                    <button id="toggle-extid" class="filter-btn" data-filter="extid">Ext Id</button>
+                </div>
+                <div class="search-bar">
+                    <input id="search-students" type="text" placeholder="🔍 Search..." class="search-input">
+                    <button id="refresh-btn" class="refresh-btn">↻ Reset</button>
+                </div>
+            </div>
+
+            <div class="grid">
+            </div>
+        </div>
+
+        <div id="studentModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <div class="modal-title">New Student</div>
+                    <div class="modal-actions">
+                        <button id="student-cancel" class="btn">Cancel</button>
+                        <button id="student-create" class="btn btn-primary">Create Student</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form id="student-form">
+                        <div class="form-group">
+                            <label for="student-firstname">First Name</label>
+                            <input id="student-firstname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-lastname">Last Name</label>
+                            <input id="student-lastname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-external">External Id</label>
+                            <input id="student-external" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Classes</label>
+                            <div id="student-classes" class="classes-checkbox-group"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-smartgrade">SmartGrade Id (auto)</label>
+                            <input id="student-smartgrade" type="text" readonly>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="editStudentModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <div class="modal-title">Edit Student</div>
+                    <div class="modal-actions">
+                        <button id="edit-cancel" class="btn">Cancel</button>
+                        <button id="edit-save" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-student-form">
+                        <div class="form-group">
+                            <label for="edit-student-firstname">First Name</label>
+                            <input id="edit-student-firstname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-student-lastname">Last Name</label>
+                            <input id="edit-student-lastname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-student-external">External Id</label>
+                            <input id="edit-student-external" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Classes</label>
+                            <div id="edit-student-classes" class="classes-checkbox-group"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-student-smartgrade">SmartGrade Id</label>
+                            <input id="edit-student-smartgrade" type="text" readonly>
+                        </div>
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                            <button id="delete-student" type="button" class="btn" style="background-color: #dc3545; color: white;">Delete Student</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="Quizzes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Quizzes 📝</a>
+        <a href="Students.html" style="color: white; font-size: 1.8em; text-decoration: none;">Students 👥</a>
+        <a href="Classes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Classes 🎓</a>
+        <a href="Account.html" style="color: white; font-size: 1.8em; text-decoration: none;">Account 👤</a>
+    </div>
+
+    <script src="../JS/api.js"></script>
+<script src="../JS/Site.js"></script>
+    <script src="../JS/Students.js"></script>
+    
+</body>
+</html>

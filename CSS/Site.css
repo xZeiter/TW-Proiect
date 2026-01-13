@@ -1,0 +1,250 @@
+/* ========== GLOBAL STYLES ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ========== NAVBAR STYLES ========== */
+.top-navbar {
+    background: #667eea;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
+    cursor: pointer;
+}
+
+.navbar-left {
+    font-size: 1.5em;
+}
+
+.navbar-center {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar-right {
+    font-size: 1.3em;
+}
+
+.btn-new {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-new:hover {
+    background: #f0f0f0;
+}
+
+.bottom-navbar {
+    background: #999;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #ddd;
+}
+
+.bottom-navbar a {
+    color: white;
+    font-size: 1.2em;
+    text-decoration: none;
+    padding: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.bottom-navbar a:hover {
+    opacity: 0.8;
+}
+
+/* ========== LAYOUT ========== */
+.main-content {
+    flex: 1;
+    padding: 30px 20px;
+    overflow-y: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ========== CARD STYLES ========== */
+.card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* ========== BUTTON STYLES ========== */
+.btn {
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #e0e0e0;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+}
+
+/* ========== GRID & LAYOUT ========== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-placeholder {
+    text-align: center;
+    color: #666;
+    padding: 60px 20px;
+    font-size: 1.1rem;
+}
+
+/* ========== SIDEBAR MENU ========== */
+.sidebar-menu {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: #333;
+    z-index: 999;
+    transition: left 0.3s ease;
+    padding-top: 60px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-menu.open {
+    left: 0;
+}
+
+.close-menu-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.close-menu-btn:hover {
+    opacity: 0.8;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 16px 24px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 500;
+    border-bottom: 1px solid #444;
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+    background: #444;
+    padding-left: 32px;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    z-index: 998;
+    transition: background 0.3s ease;
+    display: none;
+}
+
+.sidebar-overlay.open {
+    background: rgba(0, 0, 0, 0.5);
+    display: block;
+}
+
+.main-content.sidebar-open {
+    transform: translateX(300px);
+    transition: transform 0.3s ease;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar-center {
+        font-size: 1.2em;
+    }
+
+    .main-content {
+        padding: 20px 10px;
+    }
+}

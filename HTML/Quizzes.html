@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes</title>
+    <link rel="stylesheet" href="../CSS/Site.css">
+    <link rel="stylesheet" href="../CSS/Quizzes.css">
+    <style>
+        /* Stiluri specifice pentru Modalul Mare de Review */
+        .modal-large {
+            max-width: 95% !important; /* Aproape tot ecranul */
+            height: 90vh; /* 90% din inaltime */
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-large .modal-body {
+            flex: 1;
+            overflow-y: auto; /* Scroll doar in interior */
+        }
+        .results-table th, .results-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .results-table th {
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="navbar-left" onclick="toggleMenu()">☰</div>
+        <div class="navbar-center">Quizzes</div>
+        <button class="navbar-right btn-new" onclick="createNew()">+ New</button>
+    </div>
+
+    <div id="sidebar-menu" class="sidebar-menu">
+        <button id="close-menu" class="close-menu-btn">✕</button>
+        <nav class="sidebar-nav">
+            <a href="Quizzes.html" class="sidebar-link">📝 Quizzes</a>
+            <a href="Students.html" class="sidebar-link">👥 Students</a>
+            <a href="Classes.html" class="sidebar-link">🎓 Classes</a>
+            <a href="Account.html" class="sidebar-link">👤 Account</a>
+        </nav>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="search-controls">
+                <div class="filter-buttons">
+                    <button id="toggle-quiz-name" class="filter-btn active" data-filter="name">Name</button>
+                    <button id="toggle-quiz-id" class="filter-btn" data-filter="id">Quiz ID</button>
+                    <button id="toggle-quiz-date" class="filter-btn" data-filter="date">Date</button>
+                </div>
+                <div class="search-bar">
+                    <input id="search-quizzes" type="text" placeholder="🔍 Search..." class="search-input">
+                    <button id="refresh-quizzes-btn" class="refresh-btn">↻ Reset</button>
+                </div>
+            </div>
+
+            <div class="grid"></div>
+        </div>
+
+        <div id="quizModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <div class="modal-title">New Quiz</div>
+                    <div class="modal-actions">
+                        <button id="quiz-cancel" class="btn">Cancel</button>
+                        <button id="quiz-create" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form id="quiz-form">
+                        <div class="form-group">
+                            <label for="quiz-name">Quiz Name</label>
+                            <input id="quiz-name" type="text" placeholder="Enter quiz name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quiz-date">Date</label>
+                            <input id="quiz-date" type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Classes</label>
+                            <div id="quiz-classes" class="classes-checkbox-group"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewQuizModal" class="modal">
+            <div class="modal-card">
+                <div class="modal-navbar">
+                    <button id="view-quiz-back" class="btn">← Back</button>
+                    <div class="modal-title" id="view-quiz-title">Quiz Name</div>
+                    <button id="view-quiz-edit" class="btn btn-primary">Edit</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="quiz-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Quiz Name:</span>
+                            <span class="detail-value" id="view-quiz-name"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Classes:</span>
+                            <span class="detail-value" id="view-quiz-classes"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Questions:</span>
+                            <span class="detail-value" id="view-quiz-questions"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value" id="view-quiz-date"></span>
+                        </div>
+                    </div>
+
+                    <div class="quiz-actions">
+                        <button id="quiz-questions-keys" class="action-btn btn-questions">📝 Questions & Keys</button>
+                        <button type="button" id="quiz-scan-papers" class="action-btn btn-scan">📷 Scan Papers</button>
+                        <input type="file" id="hidden-scan-input" accept="image/*,application/pdf" style="display: none;">
+                        <button id="quiz-review-papers" class="action-btn btn-review">✓ Review Papers</button>
+                        <button type="button" id="quiz-generate-paper" class="action-btn btn-generate">📄 Generate Paper</button>
+                    </div>
+
+                    <div id="saved-questions-section" class="saved-questions-section" style="display: none;">
+                        <h3>Questions Preview</h3>
+                        <div id="saved-questions-list" class="saved-questions-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="questionsModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-navbar">
+                <button id="qa-cancel" class="btn">Cancel</button>
+                <div class="modal-title">Questions & Answers</div>
+                <button id="qa-save" class="btn btn-primary">Save</button>
+            </div>
+            <div class="modal-body">
+                <div id="questions-container" class="questions-container"></div>
+                <div class="qa-actions">
+                    <button id="add-question-btn" type="button" class="btn btn-action">+ Add Question</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="qa-import" class="btn btn-primary">Import</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editQuizModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-navbar">
+                <button id="edit-quiz-delete" class="btn" style="background-color: #dc3545; color: white;">Delete</button>
+                <div class="modal-title">Edit Quiz</div>
+                <button id="edit-quiz-done" class="btn btn-primary">Done</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-quiz-form">
+                    <div class="form-group">
+                        <label for="edit-quiz-name">Quiz Name</label>
+                        <input id="edit-quiz-name" type="text" placeholder="Enter quiz name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-quiz-date">Date</label>
+                        <input id="edit-quiz-date" type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Classes</label>
+                        <div id="edit-quiz-classes" class="classes-checkbox-group"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="resultsListModal" class="modal">
+        <div class="modal-card modal-large">
+            <div class="modal-navbar">
+                <button id="results-list-close" class="btn">Close</button>
+                <div class="modal-title">Review Papers & Results</div>
+                <div style="width: 50px;"></div> </div>
+
+            <div class="modal-body">
+                <div class="search-controls" style="margin-bottom: 20px;">
+                    <div class="filter-buttons">
+                        <button id="filter-res-name" class="filter-btn active">Name</button>
+                        <button id="filter-res-id" class="filter-btn">ID</button>
+                        <button id="filter-res-extid" class="filter-btn">Ext ID</button>
+                    </div>
+                    <div class="search-bar" style="flex: 1;">
+                        <input id="search-results-input" type="text" placeholder="Search students..." class="search-input" style="width: 100%;">
+                    </div>
+                </div>
+
+                <div class="results-table-container">
+                    <table class="results-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>ID</th>
+                                <th>Ext ID</th>
+                                <th>Score</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-navbar">
+                <button id="review-cancel" class="btn">Cancel</button>
+                <div class="modal-title">Review Scan</div>
+                <button id="review-confirm" class="btn btn-primary">Confirm</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group" style="text-align: center; margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom: 5px;">Student Name (from paper):</label>
+                    <div style="border: 2px dashed #ccc; padding: 10px; min-height: 80px; display: flex; align-items: center; justify-content: center; background: #f9f9f9;">
+                        <img id="review-crop-img" src="" alt="Name Crop" style="max-width: 100%; height: auto; display: none;">
+                        <span id="review-crop-placeholder" style="color: #999;">No image available</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: #e8f5e9; padding: 15px; border-radius: 8px; border: 1px solid #c3e6cb;">
+                        <span style="font-size: 1.1em; color: #155724;">Calculated Score:</span>
+                        <span id="review-score-display" style="font-size: 1.5em; font-weight: bold; color: #155724;">0.00</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-student-select">Identified Student:</label>
+                    <select id="review-student-select" class="question-input" style="width: 100%; padding: 12px;">
+                        <option value="">-- Select Student --</option>
+                    </select>
+                    <small style="color: #666; display: block; margin-top: 5px;">
+                        *Check if the name in the image matches the student selected above.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="Quizzes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Quizzes 📝</a>
+        <a href="Students.html" style="color: white; font-size: 1.8em; text-decoration: none;">Students 👥</a>
+        <a href="Classes.html" style="color: white; font-size: 1.8em; text-decoration: none;">Classes 🎓</a>
+        <a href="Account.html" style="color: white; font-size: 1.8em; text-decoration: none;">Account 👤</a>
+    </div>
+
+    <script src="../JS/api.js"></script>
+    <script src="../JS/Site.js"></script>
+    <script src="../JS/Quizzes.js"></script>
+</body>
+</html>

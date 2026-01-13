@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Login & Register</title>
+    <link rel="stylesheet" href="../CSS/Home.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <img src="https://via.placeholder.com/150" alt="Logo" class="logo">
+            <h1>Welcome</h1>
+        </div>
+
+        <div class="auth-container">
+            <div class="form-wrapper login-form" id="loginForm">
+                <h2>Login</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <p class="toggle-text">Don't have an account? <a href="#" onclick="toggleForms()">Register here</a></p>
+                <p class="divider">or</p>
+                <a href="Quizzes.html" class="btn btn-guest">Continue as Guest</a>
+            </div>
+
+            <div class="form-wrapper register-form hidden" id="registerForm">
+                <h2>Register</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirm Password</label>
+                        <input type="password" id="register-confirm" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                </form>
+                <p class="toggle-text">Already have an account? <a href="#" onclick="toggleForms()">Login here</a></p>
+            </div>
+        </div>
+    </div>
+<script src="../JS/api.js"></script>
+<script src="../JS/Site.js"></script>
+    <script src="../JS/Home.js"></script>
+</body>
+</html>
